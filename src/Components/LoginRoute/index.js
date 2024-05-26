@@ -1,13 +1,19 @@
+import {useState} from 'react'
+
 import loginLogo from '../../Images/loginLogo.png'
 import './index.css'
 
 function Login() {
+  const [showPassword, setShowPassword] = useState(false)
+  const [inputUserName, setUserName] = useState('')
+  const [inputPassword, setPassword] = useState('')
+
   return (
     <div className="container">
       <div className="login-container">
         <img src={loginLogo} alt="logo" className="logo-img" />
 
-        <form onSubmit={() => console.log('hi')}>
+        <form onSubmit={() => console.log(inputUserName, inputPassword)}>
           <label htmlFor="username" className="label">
             Username
           </label>
@@ -22,30 +28,36 @@ function Login() {
               <path
                 d="M9.20485 9.18945C9.15316 9.18207 9.0867 9.18207 9.02762 9.18945C7.72794 9.14514 6.69409 8.08176 6.69409 6.77469C6.69409 5.43808 7.77224 4.35254 9.11624 4.35254C10.4529 4.35254 11.5384 5.43808 11.5384 6.77469C11.531 8.08176 10.5045 9.14514 9.20485 9.18945Z"
                 stroke="#64748B"
-                stroke-width="1.25"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.25"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M14.0919 14.0661C12.7774 15.2697 11.0347 16.0008 9.11467 16.0008C7.19467 16.0008 5.45191 15.2697 4.13745 14.0661C4.2113 13.3719 4.65437 12.6925 5.44453 12.1608C7.4679 10.8168 10.7762 10.8168 12.7848 12.1608C13.575 12.6925 14.018 13.3719 14.0919 14.0661Z"
                 stroke="#64748B"
-                stroke-width="1.25"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.25"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M9.11531 15.9992C13.1937 15.9992 16.4999 12.693 16.4999 8.61458C16.4999 4.53618 13.1937 1.22998 9.11531 1.22998C5.03691 1.22998 1.73071 4.53618 1.73071 8.61458C1.73071 12.693 5.03691 15.9992 9.11531 15.9992Z"
                 stroke="#64748B"
-                stroke-width="1.25"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.25"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
-            <input id="username" className="input" type="text" />
+            <input
+              id="username"
+              className="input"
+              type="text"
+              value={inputUserName}
+              onChange={e => setUserName(e.target.value)}
+            />
           </div>
 
           <div style={{marginTop: '15px'}}>
-            <label htmlFor="username" className="label">
+            <label htmlFor="password" className="label">
               Password
             </label>
             <div className="input-container">
@@ -86,18 +98,39 @@ function Login() {
                 />
               </svg>
 
-              <input id="username" className="input" type="password" />
+              <input
+                id="password"
+                className="input"
+                type={showPassword ? 'text' : 'password'}
+                value={inputPassword}
+                onChange={e => setPassword(e.target.value)}
+              />
             </div>
           </div>
 
           <div className="show-pass-container">
-            <input type="checkbox" className="checkbox" />
-            <p className="show-password">Show Password</p>
+            <input
+              id="showPassword"
+              type="checkbox"
+              className="checkbox"
+              onChange={() => setShowPassword(!showPassword)}
+            />
+            <label htmlFor="showPassword" className="show-password">
+              Show Password
+            </label>
           </div>
 
-          <button type="submit" className="login-btn">
+          <button
+            type="submit"
+            className={
+              inputPassword.length > 0 || inputUserName.length > 0
+                ? 'active-login-btn'
+                : 'login-btn'
+            }
+          >
             Login
           </button>
+          <p className="error-msg">Incorrect username or password</p>
         </form>
       </div>
     </div>
