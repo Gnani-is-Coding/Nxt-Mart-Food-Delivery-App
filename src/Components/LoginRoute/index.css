@@ -1,0 +1,73 @@
+.container {
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../../Images/Background_mobile.jpg');
+}
+
+.login-container {
+  width: 90%;
+  max-width: 520px;
+  max-height: 500px;
+  top: 161px;
+  left: 16px;
+  padding: 56px 64px 64px 64px;
+  gap: 40px;
+  border-radius: 16px;
+  opacity: 0px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logo-img {
+  width: 90px;
+}
+.label {
+  font-family: 'Inter';
+  color: #333333;
+  font-size: 14px;
+}
+.input-container {
+  border: 1px solid #64748b;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  padding: 5px;
+  gap: 5px;
+  margin-top: 5px;
+}
+.input {
+  outline: none;
+  border: none;
+}
+.show-password {
+  color: #333333;
+  font-weight: 400;
+}
+.checkbox {
+  height: 20px;
+}
+.show-pass-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.login-btn {
+  background-color: #b3b3b3;
+  color: #ffffff;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    background-image: url('../../Images/Background_large.png');
+  }
+}
