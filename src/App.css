@@ -9,4 +9,41 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+}
+
+/* WebKit browsers (Chrome, Safari, Edge) */
+body::-webkit-scrollbar {
+  width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #4a00e0, #8e2de2);
+}
+
+/* Firefox */
+body {
+  scrollbar-width: thin;
+  scrollbar-color: linear-gradient(45deg, #6a11cb, #2575fc) #f1f1f1;
+}
+
+/* Ensure the body takes the full height and allows scrolling */
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  overflow-y: scroll;
 }
