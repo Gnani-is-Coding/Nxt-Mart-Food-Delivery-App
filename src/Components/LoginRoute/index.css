@@ -82,6 +82,24 @@
   color: #ef4444;
   margin: 5px;
 }
+.credentials-container {
+  background-color: #b3b3b3;
+  padding: 8px;
+  border-radius: 10px;
+  align-self: flex-end;
+  font-size: 10px;
+  font-weight: bold;
+  margin-top: -30px;
+}
+.copy-icon {
+  height: 15px;
+  cursor: pointer;
+}
+.copy-usdername {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
 @media screen and (min-width: 768px) {
   .container {
