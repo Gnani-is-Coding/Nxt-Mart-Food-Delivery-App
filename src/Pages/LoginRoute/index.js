@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import Cookies from 'js-cookie'
-import {useHistory} from 'react-router-dom'
+import {useHistory, Redirect} from 'react-router-dom'
 
 import loginLogo from '../../Images/loginLogo.png'
 import './index.css'
@@ -43,6 +43,11 @@ function Login() {
     }
   }
 
+  const jwtToken = Cookies.get('jwt_token')
+
+  if (jwtToken) {
+    return <Redirect to="/" />
+  }
   return (
     <div className="container">
       <div className="login-container">
