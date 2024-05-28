@@ -1,7 +1,7 @@
 import './index.css'
 
-function Login() {
+function Cart() {
   return <div>Login</div>
 }
 
-export default Login
+export default Cart

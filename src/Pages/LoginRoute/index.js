@@ -1,4 +1,6 @@
 import {useState} from 'react'
+import Cookies from 'js-cookie'
+import {useHistory} from 'react-router-dom'
 
 import loginLogo from '../../Images/loginLogo.png'
 import './index.css'
@@ -7,13 +9,46 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [inputUserName, setUserName] = useState('')
   const [inputPassword, setPassword] = useState('')
+  const [copyUsername, setCopiedUsername] = useState(false)
+  const [copyPassword, setCopiedPassword] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
+
+  const history = useHistory()
+
+  const copyText = async text => {
+    await navigator.clipboard.writeText(text)
+  }
+
+  const onClickLogin = async e => {
+    e.preventDefault()
+    const userCredentials = {username: inputUserName, password: inputPassword}
+    const loginEndpoint = 'https://apis.ccbp.in/login'
+
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(userCredentials),
+    }
+
+    const response = await fetch(loginEndpoint, options)
+    console.log(response)
+    const data = await response.json()
+
+    if (response.ok) {
+      setErrorMsg('')
+
+      Cookies.set('jwt_token', data.jwt_token, {expires: 10})
+      history.replace('/')
+    } else {
+      setErrorMsg(data.error_msg)
+    }
+  }
 
   return (
     <div className="container">
       <div className="login-container">
         <img src={loginLogo} alt="logo" className="logo-img" />
 
-        <form onSubmit={() => console.log(inputUserName, inputPassword)}>
+        <form onSubmit={onClickLogin}>
           <label htmlFor="username" className="label">
             Username
           </label>
@@ -130,8 +165,100 @@ function Login() {
           >
             Login
           </button>
-          <p className="error-msg">Incorrect username or password</p>
+          {/* #TODO add a login spinner while logging in...  */}
+          {errorMsg && <p className="error-msg">{errorMsg}</p>}
         </form>
+
+        <div className="credentials-container">
+          <p
+            id="userNameToCopy"
+            className="copy-usdername"
+            onClick={() => {
+              setCopiedUsername(true)
+              copyText('rahul')
+            }}
+          >
+            UserName: rahul
+            {copyUsername ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-copy-check copy-icon"
+              >
+                <path d="m12 15 2 2 4-4" />
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-copy copy-icon"
+              >
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+            )}
+          </p>
+          <p
+            id="userNameToCopy"
+            className="copy-usdername"
+            onClick={() => {
+              setCopiedPassword(true)
+              copyText('rahul@2021')
+            }}
+          >
+            Password: rahul@2021
+            {copyPassword ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-copy-check copy-icon"
+              >
+                <path d="m12 15 2 2 4-4" />
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-copy copy-icon"
+              >
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+            )}
+          </p>
+        </div>
       </div>
     </div>
   )

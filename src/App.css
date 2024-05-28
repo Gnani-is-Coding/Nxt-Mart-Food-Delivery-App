@@ -1,5 +1,9 @@
 * {
   box-sizing: border-box;
+  padding: 0px;
+}
+html {
+  height: 100vh;
 }
 
 body {
