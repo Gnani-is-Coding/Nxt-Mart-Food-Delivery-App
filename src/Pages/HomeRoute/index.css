@@ -1,7 +1,6 @@
 .home-container {
   height: 100vh;
   background: #ffffff;
-  padding: 15px;
 }
 .categories-container {
   display: flex;
@@ -9,6 +8,13 @@
   justify-content: space-around;
   padding: 0px;
   text-align: center;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 0px 0px 20px 20px;
+  border: 2px solid #d1d5db;
+  border-top-width: 0px;
 }
 .cat-icon-container {
   /* background-color: #088c03; */
@@ -36,17 +42,22 @@
 }
 .mobile-navigation-container {
   border-radius: 20px 20px 0px 0px;
-  border: 1px solid #d1d5db;
+  border: 2px solid #d1d5db;
   height: 75px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 0px;
-  position: fixed;
+  /* position: fixed;
   width: 100%;
   bottom: 0%;
-  top: 83%;
-  left: 0%;
+  top: 85%;
+  left: 0%; */
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  /* margin-bottom: 0px; */
+  background-color: #ffffff;
 }
 .nav-icons {
   color: #808080;
@@ -55,7 +66,7 @@
   color: #808080;
   font-weight: bold;
   font-size: 12px;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 .nav-item-container {
   list-style-type: none;
@@ -63,6 +74,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: 13px;
+  margin-bottom: 5px;
 }
 .fruits-heading {
   font-size: 14px;
@@ -84,15 +96,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 40px;
 }
 .products-items-container {
   margin-top: -10px;
+  padding: 15px;
 }
 .products-container {
   display: flex;
   overflow-x: auto;
-
+  width: 110%;
   align-items: center;
+  margin-top: 0px;
 }
 .product-item-container {
   padding: 10px;

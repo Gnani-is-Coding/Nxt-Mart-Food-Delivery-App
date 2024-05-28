@@ -1,7 +1,13 @@
+import Loader from 'react-loader-spinner'
+
 import './index.css'
 
-function Login() {
-  return <div>Login</div>
+function LoadingView() {
+  return (
+    <div className="loader-container">
+      <Loader />
+    </div>
+  )
 }
 
-export default Login
+export default LoadingView
