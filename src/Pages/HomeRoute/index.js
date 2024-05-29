@@ -2,6 +2,8 @@ import {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {LogOut} from 'lucide-react'
 
+import {useCart} from '../Context'
+
 import allFoods1 from '../../Images/allFoods1.png'
 import frozenFoods from '../../Images/frozenFoods.png'
 import vegetablesIcon from '../../Images/vegetablesIcon.png'
@@ -55,6 +57,8 @@ function HomeRoute() {
   const [currentView, setCurrentView] = useState(viewsObject.loadingView)
   const [currentCategoryID, setCategoryID] = useState(0)
 
+  const {addToCart, cartProducts} = useCart()
+
   const getDataFromApi = async () => {
     setCurrentView(viewsObject.loadingView)
     const endPoint =
@@ -74,6 +78,21 @@ function HomeRoute() {
   useEffect(() => {
     getDataFromApi()
   }, [])
+
+  const onClickAddProduct = (productCategory, productName) => {
+    const productCategoryDetails = apiData.filter(
+      obj => obj.name === productCategory,
+    )
+    const productDetails = productCategoryDetails[0].products.filter(
+      obj => obj.name === productName,
+    )
+    addToCart(productDetails[0])
+  }
+
+  const findProductQuantity = productObj => {
+    const product = cartProducts.find(obj => productObj.name === obj.name)
+    return product ? product.quantity : 0
+  }
 
   const renderSuccessView = () => (
     <div>
@@ -152,26 +171,37 @@ function HomeRoute() {
 
               {/** #TODO change scroll bar next time */}
               <ul className="products-container">
-                {obj.products?.map(productObj => (
-                  <li key={productObj.id} className="product-item-container">
-                    <img
-                      src={productObj.image}
-                      alt={productObj.name}
-                      className="product-image"
-                    />
+                {obj.products?.map(productObj => {
+                  const productQuantity = findProductQuantity(productObj)
 
-                    <div className="product-details">
-                      <h4 className="product-heading">{productObj.name}</h4>
-                      <p className="product-price">{productObj.weight}</p>
-                      <div className="price-add-container">
-                        <p>{productObj.price}</p>
-                        <button type="button" className="add-btn">
-                          Add
-                        </button>
+                  console.log(productQuantity, 'pro q')
+                  return (
+                    <li key={productObj.id} className="product-item-container">
+                      <img
+                        src={productObj.image}
+                        alt={productObj.name}
+                        className="product-image"
+                      />
+
+                      <div className="product-details">
+                        <h4 className="product-heading">{productObj.name}</h4>
+                        <p className="product-price">{productObj.weight}</p>
+                        <div className="price-add-container">
+                          <p>{productObj.price}</p>
+                          <button
+                            type="button"
+                            className="add-btn"
+                            onClick={() =>
+                              onClickAddProduct(obj.name, productObj.name)
+                            }
+                          >
+                            {productQuantity !== 0 ? productQuantity : 'Add'}
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                ))}
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           ))}

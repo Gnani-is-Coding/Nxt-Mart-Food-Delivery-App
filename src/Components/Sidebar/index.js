@@ -6,11 +6,11 @@ function Sidebar({categoriesList}) {
       <h4 className="cat-heading">Categories</h4>
 
       <ul className="cat-items-container">
-        <li key="all" className="cat-items active-cat-items">
+        <li key="-1" className="cat-items active-cat-items">
           All
         </li>
         {categoriesList.map(obj => (
-          <li key={obj.id} className="cat-items ">
+          <li key={obj.id} className="cat-items">
             {obj.name}
           </li>
         ))}
