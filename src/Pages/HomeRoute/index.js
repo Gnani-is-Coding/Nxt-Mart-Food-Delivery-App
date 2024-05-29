@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
-import {Home, ShoppingCart, LogOut} from 'lucide-react'
 import {Link} from 'react-router-dom'
+import {LogOut} from 'lucide-react'
 
 import allFoods1 from '../../Images/allFoods1.png'
 import frozenFoods from '../../Images/frozenFoods.png'
@@ -12,6 +12,7 @@ import FailureView from '../../Components/Failure'
 import NotFoundRoute from '../NotFoundRoute'
 import loginLogo from '../../Images/loginLogo.png'
 import Sidebar from '../../Components/Sidebar'
+import MobileNavigationContainer from '../../Components/MobileNavigationContainer'
 import './index.css'
 
 const categoriesList = [
@@ -27,17 +28,17 @@ const categoriesList = [
   },
   {
     id: 2,
-    name: 'Prepared Foods',
+    name: 'Foodgrains, Oil & Masala',
     categoryIcon: preparedFoods,
   },
   {
     id: 3,
-    name: 'Canned Foods',
+    name: 'Eggs, Meat & Fish',
     categoryIcon: cannedFoods,
   },
   {
     id: 4,
-    name: 'Frozen Foods',
+    name: 'Cleaning & Household',
     categoryIcon: frozenFoods,
   },
 ]
@@ -52,6 +53,7 @@ const viewsObject = {
 function HomeRoute() {
   const [apiData, setApiData] = useState([])
   const [currentView, setCurrentView] = useState(viewsObject.loadingView)
+  const [currentCategoryID, setCategoryID] = useState(0)
 
   const getDataFromApi = async () => {
     setCurrentView(viewsObject.loadingView)
@@ -94,12 +96,29 @@ function HomeRoute() {
 
       <ul className="categories-container">
         {categoriesList.map(obj => (
-          <li key={obj.id} className="category-items">
-            <div className="cat-icon-container">
+          <a
+            key={obj.id}
+            className="category-items"
+            onClick={() => setCategoryID(obj.id)}
+            href={obj.name === 'All' ? '#Fruits & Vegetables' : `#${obj.name}`}
+          >
+            <div
+              className={
+                currentCategoryID === obj.id
+                  ? 'active-cat-icon-container'
+                  : 'cat-icon-container'
+              }
+            >
               <img src={obj.categoryIcon} alt="veg" />
             </div>
-            <p className="cat-para">{obj.name}</p>
-          </li>
+            <p
+              className={
+                currentCategoryID === obj.id ? 'active-cat-para' : 'cat-para'
+              }
+            >
+              {obj.name}
+            </p>
+          </a>
         ))}
       </ul>
 
@@ -107,190 +126,55 @@ function HomeRoute() {
         <Sidebar categoriesList={apiData} />
 
         <div className="products-items-container">
-          <div>
-            <div className="products-heading-container">
-              <h4 className="fruits-heading">
-                {apiData[0]?.name}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-chevron-right"
-                >
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
-              </h4>
+          {apiData.map(obj => (
+            <div id={obj.name} key={obj.name}>
+              <div className="products-heading-container">
+                <h4 className="fruits-heading">
+                  {obj.name}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-chevron-right"
+                  >
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </h4>
 
-              <p className="view-all-para">View all</p>
-            </div>
+                <p className="view-all-para">View all</p>
+              </div>
 
-            {/** #TODO change scroll bar next time */}
-            <ul className="products-container">
-              {apiData[0]?.products?.map(obj => (
-                <li key={obj.id} className="product-item-container">
-                  <img
-                    src={obj.image}
-                    alt={obj.name}
-                    className="product-image"
-                  />
+              {/** #TODO change scroll bar next time */}
+              <ul className="products-container">
+                {obj.products?.map(productObj => (
+                  <li key={productObj.id} className="product-item-container">
+                    <img
+                      src={productObj.image}
+                      alt={productObj.name}
+                      className="product-image"
+                    />
 
-                  <div className="product-details">
-                    <h4 className="product-heading">{obj.name}</h4>
-                    <p className="product-price">{obj.weight}</p>
-                    <div className="price-add-container">
-                      <p>{obj.price}</p>
-                      <button type="button" className="add-btn">
-                        Add
-                      </button>
+                    <div className="product-details">
+                      <h4 className="product-heading">{productObj.name}</h4>
+                      <p className="product-price">{productObj.weight}</p>
+                      <div className="price-add-container">
+                        <p>{productObj.price}</p>
+                        <button type="button" className="add-btn">
+                          Add
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <div className="products-heading-container">
-              <h4 className="fruits-heading">
-                {apiData[0]?.name}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-chevron-right"
-                >
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
-              </h4>
-              <p className="view-all-para">View all</p>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="products-container">
-              {apiData[0]?.products?.map(obj => (
-                <li key={obj.id} className="product-item-container">
-                  <img
-                    src={obj.image}
-                    alt={obj.name}
-                    className="product-image"
-                  />
-
-                  <div className="product-details">
-                    <h4 className="product-heading">{obj.name}</h4>
-                    <p className="product-price">{obj.weight}</p>
-                    <div className="price-add-container">
-                      <p>{obj.price}</p>
-                      <button type="button" className="add-btn">
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <div className="products-heading-container">
-              <h4 className="fruits-heading">
-                {apiData[0]?.name}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-chevron-right"
-                >
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
-              </h4>
-              <p className="view-all-para">View all</p>
-            </div>
-            <ul className="products-container">
-              {apiData[0]?.products?.map(obj => (
-                <li key={obj.id} className="product-item-container">
-                  <img
-                    src={obj.image}
-                    alt={obj.name}
-                    className="product-image"
-                  />
-
-                  <div className="product-details">
-                    <h4 className="product-heading">{obj.name}</h4>
-                    <p className="product-price">{obj.weight}</p>
-                    <div className="price-add-container">
-                      <p>{obj.price}</p>
-                      <button type="button" className="add-btn">
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <div className="products-heading-container">
-              <h4 className="fruits-heading">
-                {apiData[0]?.name}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-chevron-right"
-                >
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
-              </h4>
-              <p className="view-all-para">View all</p>
-            </div>
-
-            {/** #TODO change scroll bar next time */}
-            <ul className="products-container">
-              {apiData[0]?.products?.map(obj => (
-                <li key={obj.id} className="product-item-container">
-                  <img
-                    src={obj.image}
-                    alt={obj.name}
-                    className="product-image"
-                  />
-
-                  <div className="product-details">
-                    <h4 className="product-heading">{obj.name}</h4>
-                    <p className="product-price">{obj.weight}</p>
-                    <div className="price-add-container">
-                      <p>{obj.price}</p>
-                      <button type="button" className="add-btn">
-                        Add
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -433,28 +317,7 @@ function HomeRoute() {
   return (
     <div className="home-container">
       {renderHomeView()}
-      <ul className="mobile-navigation-container">
-        <li className="nav-item-container">
-          <div className="nav-icons">
-            <Home />
-          </div>
-          <p className="nav-para">Home</p>
-        </li>
-
-        <li className="nav-item-container">
-          <div className="nav-icons">
-            <ShoppingCart />
-          </div>
-          <p className="nav-para">Cart</p>
-        </li>
-
-        <li className="nav-item-container">
-          <div className="nav-icons">
-            <LogOut />
-          </div>
-          <p className="nav-para">Logout</p>
-        </li>
-      </ul>
+      <MobileNavigationContainer />
     </div>
   )
 }
