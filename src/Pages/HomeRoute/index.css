@@ -132,6 +132,15 @@
   color: #088c03;
   padding: 10px;
   border-radius: 5px;
+  cursor: pointer;
+}
+.add-btn-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.plus-btn {
+  cursor: pointer;
 }
 .header-container {
   display: none;

@@ -21,6 +21,31 @@ export const ContextProvider = ({children}) => {
     console.log(cartProducts, 'cart')
   }
 
+  const increaseQuantity = prodName => {
+    setCartProducts(prevProducts =>
+      prevProducts.map(obj => {
+        if (obj.name === prodName) {
+          return {...obj, quantity: obj.quantity + 1}
+        }
+        return obj
+      }),
+    )
+  }
+
+  const decreaseQuantity = prodName => {
+    setCartProducts(prevProducts =>
+      prevProducts.map(obj => {
+        if (obj.name === prodName) {
+          if (obj.quantity > 1) {
+            return {...obj, quantity: obj.quantity - 1}
+          }
+          return {...obj, quantity: 0}
+        }
+        return obj
+      }),
+    )
+  }
+
   const removeFromCart = id => {
     setCartProducts(prevProducts =>
       prevProducts.filter(product => product.id !== id),
@@ -33,7 +58,14 @@ export const ContextProvider = ({children}) => {
 
   return (
     <ContextObject.Provider
-      value={{cartProducts, addToCart, removeFromCart, clearCart}}
+      value={{
+        cartProducts,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        increaseQuantity,
+        decreaseQuantity,
+      }}
     >
       {children}
     </ContextObject.Provider>

@@ -57,7 +57,12 @@ function HomeRoute() {
   const [currentView, setCurrentView] = useState(viewsObject.loadingView)
   const [currentCategoryID, setCategoryID] = useState(0)
 
-  const {addToCart, cartProducts} = useCart()
+  const {
+    addToCart,
+    cartProducts,
+    increaseQuantity,
+    decreaseQuantity,
+  } = useCart()
 
   const getDataFromApi = async () => {
     setCurrentView(viewsObject.loadingView)
@@ -174,7 +179,6 @@ function HomeRoute() {
                 {obj.products?.map(productObj => {
                   const productQuantity = findProductQuantity(productObj)
 
-                  console.log(productQuantity, 'pro q')
                   return (
                     <li key={productObj.id} className="product-item-container">
                       <img
@@ -188,15 +192,75 @@ function HomeRoute() {
                         <p className="product-price">{productObj.weight}</p>
                         <div className="price-add-container">
                           <p>{productObj.price}</p>
-                          <button
-                            type="button"
-                            className="add-btn"
-                            onClick={() =>
-                              onClickAddProduct(obj.name, productObj.name)
-                            }
-                          >
-                            {productQuantity !== 0 ? productQuantity : 'Add'}
-                          </button>
+
+                          {productQuantity !== 0 && (
+                            <button type="button" className="add-btn">
+                              <div className="add-btn-container">
+                                <svg
+                                  onClick={() =>
+                                    decreaseQuantity(productObj.name)
+                                  }
+                                  className="plus-btn"
+                                  width="10"
+                                  height="2"
+                                  viewBox="0 0 10 2"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M1 1H9"
+                                    stroke="#088C03"
+                                    strokeWidth="1.25"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+
+                                <span style={{cursor: 'text'}}>
+                                  {productQuantity}
+                                </span>
+
+                                <svg
+                                  onClick={() =>
+                                    increaseQuantity(productObj.name)
+                                  }
+                                  className="plus-btn"
+                                  width="10"
+                                  height="10"
+                                  viewBox="0 0 10 10"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M1 5H9"
+                                    stroke="#088C03"
+                                    strokeWidth="1.25"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                  <path
+                                    d="M5 9V1"
+                                    stroke="#088C03"
+                                    strokeWidth="1.25"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+                              </div>
+                            </button>
+                          )}
+
+                          {productQuantity === 0 && (
+                            <button
+                              type="button"
+                              className="add-btn"
+                              onClick={() =>
+                                onClickAddProduct(obj.name, productObj.name)
+                              }
+                            >
+                              Add
+                            </button>
+                          )}
                         </div>
                       </div>
                     </li>
