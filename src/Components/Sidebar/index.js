@@ -9,25 +9,27 @@ function Sidebar({categoriesList}) {
       <h4 className="cat-heading">Categories</h4>
 
       <ul className="cat-items-container">
-        <li
+        <a
           key="All"
           className={
             currentCategory === 'All' ? 'active-cat-items' : 'cat-items'
           }
           onClick={() => setCurrentCat('All')}
+          href="#Fruits & Vegetables"
         >
           All
-        </li>
+        </a>
         {categoriesList.map(obj => (
-          <li
+          <a
             key={obj.name}
             className={
               currentCategory === obj.name ? 'active-cat-items' : 'cat-items'
             }
             onClick={() => setCurrentCat(obj.name)}
+            href={`#${obj.name}`}
           >
             {obj.name}
-          </li>
+          </a>
         ))}
       </ul>
     </div>

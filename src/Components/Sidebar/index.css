@@ -23,6 +23,7 @@
   padding-left: 25px;
   overflow-y: scroll;
   padding-right: 10px;
+  max-height: 90vh;
 }
 .cat-items {
   font-family: Inter;
@@ -35,6 +36,7 @@
   padding: 5px 0px 5px 0px;
   cursor: pointer;
   height: 40px;
+  text-decoration: none;
 }
 .active-cat-items {
   padding: 6px 6px 4px 10px;
@@ -46,6 +48,7 @@
   font-size: 12px;
   text-align: left;
   margin-left: -10px;
+  text-decoration: none;
 }
 @media screen and (min-width: 768px) {
   .sidebar-container {

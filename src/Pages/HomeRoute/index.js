@@ -100,7 +100,7 @@ function HomeRoute() {
   }
 
   const renderSuccessView = () => (
-    <div>
+    <div className="home-wrapper-lg">
       <nav className="header-container">
         <img src={loginLogo} alt="logo" className="logo-img" />
 
