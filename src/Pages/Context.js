@@ -1,10 +1,14 @@
-import {createContext, useState, useContext} from 'react'
+import {createContext, useState, useContext, useEffect} from 'react'
 
 const ContextObject = createContext({})
 
 export const ContextProvider = ({children}) => {
   const [cartProducts, setCartProducts] = useState([])
   console.log(cartProducts)
+
+  useEffect(() => {
+    localStorage.setItem('cartData', JSON.stringify(cartProducts))
+  }, [cartProducts])
 
   const addToCart = obj => {
     setCartProducts(prevProducts => {

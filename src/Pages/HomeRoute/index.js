@@ -11,7 +11,6 @@ import preparedFoods from '../../Images/preparedFoods.png'
 import cannedFoods from '../../Images/cannedFoods.png'
 import LoadingView from '../LoadingView/index'
 import FailureView from '../../Components/Failure'
-import NotFoundRoute from '../NotFoundRoute'
 import loginLogo from '../../Images/loginLogo.png'
 import Sidebar from '../../Components/Sidebar'
 import MobileNavigationContainer from '../../Components/MobileNavigationContainer'
@@ -399,8 +398,6 @@ function HomeRoute() {
         return <LoadingView />
       case viewsObject.failureView:
         return <FailureView handleRetryClick={getDataFromApi} />
-      case viewsObject.notFoundView:
-        return <NotFoundRoute />
       case viewsObject.successView:
         return renderSuccessView()
       default:
