@@ -119,3 +119,25 @@
   /* left: 1%; */
   right: 2%;
 }
+
+@media screen and (min-width: 768px) {
+  .items-container {
+    justify-content: flex-start;
+    padding: 0px 30px 0px 40px;
+    font-weight: bold;
+  }
+  .checkout-btn-container {
+    position: static;
+    bottom: 10%;
+    right: 0;
+    left: 0;
+    margin-bottom: 20px;
+    margin-left: 20px;
+  }
+  .cart-product-items-container {
+    max-height: 60vh;
+    overflow-y: scroll;
+    height: 61vh;
+    overflow-x: hidden;
+  }
+}

@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react'
 import LoadingView from '../LoadingView'
 import {useCart} from '../Context'
 import MobileNavigationContainer from '../../Components/MobileNavigationContainer'
+import Footer from '../../Components/FooterSection'
 
 import './index.css'
 
@@ -138,6 +139,8 @@ function Cart() {
           Checkout
         </button>
       </div>
+
+      <Footer />
 
       <MobileNavigationContainer />
     </div>
