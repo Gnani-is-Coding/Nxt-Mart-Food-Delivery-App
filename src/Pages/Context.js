@@ -32,6 +32,12 @@ export const ContextProvider = ({children}) => {
     )
   }
 
+  const removeFromCart = prodName => {
+    setCartProducts(prevProducts =>
+      prevProducts.filter(product => product.name !== prodName),
+    )
+  }
+
   const decreaseQuantity = prodName => {
     setCartProducts(prevProducts =>
       prevProducts.map(obj => {
@@ -39,16 +45,11 @@ export const ContextProvider = ({children}) => {
           if (obj.quantity > 1) {
             return {...obj, quantity: obj.quantity - 1}
           }
+          removeFromCart(obj.name)
           return {...obj, quantity: 0}
         }
         return obj
       }),
-    )
-  }
-
-  const removeFromCart = id => {
-    setCartProducts(prevProducts =>
-      prevProducts.filter(product => product.id !== id),
     )
   }
 

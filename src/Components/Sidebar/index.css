@@ -34,14 +34,18 @@
   color: #191919;
   padding: 5px 0px 5px 0px;
   cursor: pointer;
+  height: 40px;
 }
 .active-cat-items {
-  padding: 2px 8px 2px 8px;
+  padding: 6px 6px 4px 10px;
   border-radius: 8px;
   background-color: #088c03;
   color: #ffffff;
   font-weight: bold;
-  width: 95%;
+  width: 100%;
+  font-size: 12px;
+  text-align: left;
+  margin-left: -10px;
 }
 @media screen and (min-width: 768px) {
   .sidebar-container {
