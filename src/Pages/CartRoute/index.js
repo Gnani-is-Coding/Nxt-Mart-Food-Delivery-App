@@ -18,16 +18,23 @@ function Cart() {
   const [currentView, setCurrentView] = useState(viewsObject.loadingView)
   const [cartProductsData, setCartProducts] = useState([])
   const {decreaseQuantity, increaseQuantity, cartProducts} = useCart()
+  const [checkoutPrice, setCheckoutPrice] = useState(0)
 
   useEffect(() => {
     const storedCartData = JSON.parse(localStorage.getItem('cartData'))
-    console.log(storedCartData, 'stored')
+    const TotalPrice = storedCartData.reduce(
+      (acc, obj) => acc + obj.quantity * parseInt(obj.price.slice(1)),
+      0,
+    )
+
     setCartProducts(storedCartData)
     setCurrentView(
       storedCartData.length < 0
         ? viewsObject.emptyCartView
         : viewsObject.successView,
     )
+
+    setCheckoutPrice(TotalPrice)
   }, [cartProducts])
 
   const renderSuccessView = () => (
@@ -134,7 +141,9 @@ function Cart() {
       </ul>
 
       <div className="checkout-btn-container">
-        <p>Total ({cartProductsData.length} items) : ₹ 300</p>
+        <p>
+          Total ({cartProductsData.length} items) : ₹ {checkoutPrice}
+        </p>
         <button type="button" className="checkout-btn">
           Checkout
         </button>
