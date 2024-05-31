@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import Cookies from 'js-cookie'
-import {useHistory} from 'react-router-dom'
+import {useHistory, Redirect} from 'react-router-dom'
 
 import loginLogo from '../../Images/loginLogo.png'
 import './index.css'
@@ -30,7 +30,6 @@ function Login() {
     }
 
     const response = await fetch(loginEndpoint, options)
-    console.log(response)
     const data = await response.json()
 
     if (response.ok) {
@@ -43,10 +42,15 @@ function Login() {
     }
   }
 
+  const jwtToken = Cookies.get('jwt_token')
+
+  if (jwtToken) {
+    return <Redirect to="/" />
+  }
   return (
     <div className="container">
       <div className="login-container">
-        <img src={loginLogo} alt="logo" className="logo-img" />
+        <img src={loginLogo} alt="login website logo" className="logo-img" />
 
         <form onSubmit={onClickLogin}>
           <label htmlFor="username" className="label">
