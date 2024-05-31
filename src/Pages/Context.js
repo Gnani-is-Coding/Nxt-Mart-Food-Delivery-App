@@ -16,11 +16,11 @@ export const ContextProvider = ({children}) => {
       if (productExist) {
         return prevProducts.map(prods =>
           prods.name === obj.name
-            ? {...prods, quantity: prods.quantity + 1}
+            ? {...prods, count: prods.count + 1}
             : {...prods},
         )
       }
-      return [...prevProducts, {...obj, quantity: 1}]
+      return [...prevProducts, {...obj, count: 1}]
     })
     console.log(cartProducts, 'cart')
   }
@@ -29,7 +29,7 @@ export const ContextProvider = ({children}) => {
     setCartProducts(prevProducts =>
       prevProducts.map(obj => {
         if (obj.name === prodName) {
-          return {...obj, quantity: obj.quantity + 1}
+          return {...obj, count: obj.count + 1}
         }
         return obj
       }),
@@ -46,11 +46,11 @@ export const ContextProvider = ({children}) => {
     setCartProducts(prevProducts =>
       prevProducts.map(obj => {
         if (obj.name === prodName) {
-          if (obj.quantity > 1) {
-            return {...obj, quantity: obj.quantity - 1}
+          if (obj.count > 1) {
+            return {...obj, count: obj.count - 1}
           }
           removeFromCart(obj.name)
-          return {...obj, quantity: 0}
+          return {...obj, count: 0}
         }
         return obj
       }),

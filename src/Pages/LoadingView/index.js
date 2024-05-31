@@ -7,8 +7,8 @@ function LoadingView() {
   return (
     <div>
       <NavbarLg />
-      <div className="loader-container">
-        <Loader />
+      <div className="loader-container" data-testid="loader">
+        <Loader type="ThreeDots" color="#263868" height={50} width={50} />
       </div>
     </div>
   )

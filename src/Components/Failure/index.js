@@ -8,7 +8,7 @@ function FailureView({handleRetryClick}) {
       <NavbarLg />
       <div className="not-found-container">
         <div className="not-found-card">
-          <img src={failureImg} alt="not found" className="failure-image" />
+          <img src={failureImg} alt="failure view" className="failure-image" />
           <h4 className="heading">Oops! Something went wring</h4>
           <p className="paragraph">We are having some trouble</p>
           <button

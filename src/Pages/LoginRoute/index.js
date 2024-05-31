@@ -30,7 +30,6 @@ function Login() {
     }
 
     const response = await fetch(loginEndpoint, options)
-    console.log(response)
     const data = await response.json()
 
     if (response.ok) {
@@ -51,7 +50,7 @@ function Login() {
   return (
     <div className="container">
       <div className="login-container">
-        <img src={loginLogo} alt="logo" className="logo-img" />
+        <img src={loginLogo} alt="login website logo" className="logo-img" />
 
         <form onSubmit={onClickLogin}>
           <label htmlFor="username" className="label">

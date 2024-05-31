@@ -150,6 +150,13 @@
   color: #191919cc;
 }
 
+.dec-btn {
+  border: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 768px) {
   .items-container {
     justify-content: flex-start;

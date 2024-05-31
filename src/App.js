@@ -15,7 +15,7 @@ const App = () => (
         <ProtectedRoute exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/notFound" component={NotFoundRoute} />
-        <Route path="/cart" component={Cart} />
+        <ProtectedRoute path="/cart" component={Cart} />
         <Redirect to="/notFound" />
       </Switch>
     </ContextProvider>

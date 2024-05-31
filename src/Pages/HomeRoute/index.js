@@ -94,7 +94,7 @@ function HomeRoute() {
 
   const findProductQuantity = productObj => {
     const product = cartProducts.find(obj => productObj.name === obj.name)
-    return product ? product.quantity : 0
+    return product ? product.count : 0
   }
 
   const renderSuccessView = () => (
@@ -162,7 +162,11 @@ function HomeRoute() {
                   const productQuantity = findProductQuantity(productObj)
 
                   return (
-                    <li key={productObj.id} className="product-item-container">
+                    <li
+                      key={productObj.id}
+                      className="product-item-container"
+                      data-testid="product"
+                    >
                       <img
                         src={productObj.image}
                         alt={productObj.name}
@@ -178,56 +182,73 @@ function HomeRoute() {
                           {productQuantity !== 0 && (
                             <button type="button" className="add-btn">
                               <div className="add-btn-container">
-                                <svg
-                                  onClick={() =>
-                                    decreaseQuantity(productObj.name)
-                                  }
-                                  className="plus-btn"
-                                  width="10"
-                                  height="2"
-                                  viewBox="0 0 10 2"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
+                                <button
+                                  type="button"
+                                  className="dec-btn"
+                                  alt="decrease button"
+                                  data-testid="decrement-count"
                                 >
-                                  <path
-                                    d="M1 1H9"
-                                    stroke="#088C03"
-                                    strokeWidth="1.25"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  />
-                                </svg>
+                                  <svg
+                                    onClick={() =>
+                                      decreaseQuantity(productObj.name)
+                                    }
+                                    className="plus-btn"
+                                    width="10"
+                                    height="2"
+                                    viewBox="0 0 10 2"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M1 1H9"
+                                      stroke="#088C03"
+                                      strokeWidth="1.25"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    />
+                                  </svg>
+                                </button>
 
-                                <span style={{cursor: 'text'}}>
+                                <span
+                                  style={{cursor: 'text'}}
+                                  data-testid="active-count"
+                                >
                                   {productQuantity}
                                 </span>
 
-                                <svg
-                                  onClick={() =>
-                                    increaseQuantity(productObj.name)
-                                  }
-                                  className="plus-btn"
-                                  width="10"
-                                  height="10"
-                                  viewBox="0 0 10 10"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
+                                <button
+                                  type="button"
+                                  alt="increase button"
+                                  className="dec-btn"
+                                  data-testid="increment-count"
                                 >
-                                  <path
-                                    d="M1 5H9"
-                                    stroke="#088C03"
-                                    strokeWidth="1.25"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  />
-                                  <path
-                                    d="M5 9V1"
-                                    stroke="#088C03"
-                                    strokeWidth="1.25"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  />
-                                </svg>
+                                  <svg
+                                    onClick={() =>
+                                      increaseQuantity(productObj.name)
+                                    }
+                                    className="plus-btn"
+                                    width="10"
+                                    height="10"
+                                    viewBox="0 0 10 10"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M1 5H9"
+                                      stroke="#088C03"
+                                      strokeWidth="1.25"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    />
+                                    <path
+                                      d="M5 9V1"
+                                      stroke="#088C03"
+                                      strokeWidth="1.25"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    />
+                                  </svg>
+                                </button>
                               </div>
                             </button>
                           )}
@@ -239,6 +260,7 @@ function HomeRoute() {
                               onClick={() =>
                                 onClickAddProduct(obj.name, productObj.name)
                               }
+                              data-testid="add-button"
                             >
                               Add
                             </button>

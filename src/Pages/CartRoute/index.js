@@ -16,6 +16,8 @@ const viewsObject = {
   emptyCartView: 'EMPTYCART',
 }
 
+// #TODO dec and inc buttons in Add btn container needs to be fixed
+
 function Cart() {
   const [currentView, setCurrentView] = useState(viewsObject.loadingView)
   const [cartProductsData, setCartProducts] = useState([])
@@ -26,7 +28,7 @@ function Cart() {
   useEffect(() => {
     const storedCartData = JSON.parse(localStorage.getItem('cartData'))
     const TotalPrice = storedCartData.reduce(
-      (acc, obj) => acc + obj.quantity * parseInt(obj.price.slice(1)),
+      (acc, obj) => acc + obj.count * parseInt(obj.price.slice(1)),
       0,
     )
 
@@ -75,7 +77,11 @@ function Cart() {
 
       <ul className="cart-product-items-container">
         {cartProductsData.map(productObj => (
-          <li key={productObj.id} className="cart-product-item-container">
+          <li
+            key={productObj.id}
+            className="cart-product-item-container"
+            data-testid="cartItem"
+          >
             <div className="cart-item-image-content-container">
               <img
                 src={productObj.image}
@@ -94,57 +100,73 @@ function Cart() {
 
             <button type="button" className="add-btn">
               <div className="add-btn-container">
-                <svg
-                  onClick={() => decreaseQuantity(productObj.name)}
-                  className="plus-btn"
-                  width="10"
-                  height="2"
-                  viewBox="0 0 10 2"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                <button
+                  type="button"
+                  className="dec-btn"
+                  alt="decrease button"
+                  data-testid="decrement-quantity"
                 >
-                  <path
-                    d="M1 1H9"
-                    stroke="#088C03"
-                    strokeWidth="1.25"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                  <svg
+                    onClick={() => decreaseQuantity(productObj.name)}
+                    className="plus-btn"
+                    width="10"
+                    height="2"
+                    viewBox="0 0 10 2"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 1H9"
+                      stroke="#088C03"
+                      strokeWidth="1.25"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
 
-                <span style={{cursor: 'text'}}>{productObj.quantity}</span>
+                <span style={{cursor: 'text'}} data-test-idd="item-quantity">
+                  {productObj.count}
+                </span>
 
-                <svg
-                  onClick={() => increaseQuantity(productObj.name)}
-                  className="plus-btn"
-                  width="10"
-                  height="10"
-                  viewBox="0 0 10 10"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                <button
+                  type="button"
+                  className="dec-btn"
+                  alt="increase button"
+                  data-testid="increment-quantity"
                 >
-                  <path
-                    d="M1 5H9"
-                    stroke="#088C03"
-                    strokeWidth="1.25"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M5 9V1"
-                    stroke="#088C03"
-                    strokeWidth="1.25"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                  <svg
+                    onClick={() => increaseQuantity(productObj.name)}
+                    className="plus-btn"
+                    width="10"
+                    height="10"
+                    viewBox="0 0 10 10"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1 5H9"
+                      stroke="#088C03"
+                      strokeWidth="1.25"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M5 9V1"
+                      stroke="#088C03"
+                      strokeWidth="1.25"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
               </div>
             </button>
           </li>
         ))}
       </ul>
 
-      <div className="checkout-btn-container">
+      <div className="checkout-btn-container" data-testid="total-price">
         <p>
           Total ({cartProductsData.length} items) : ₹ {checkoutPrice}
         </p>
@@ -173,6 +195,7 @@ function Cart() {
           viewBox="0 0 52 42"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          alt="empty cart"
         >
           <path
             d="M10.8064 5.32666C10.8049 5.40327 10.7997 5.48039 10.7907 5.55793L8.75264 23.2764C8.40887 26.1761 11.5765 28.6667 15.6035 28.6667H41.7547C45.2906 28.6667 48.3845 26.5675 48.6546 24.0236L49.9806 10.6814C50.2752 7.72828 47.1813 5.32666 43.0806 5.32666H10.8064Z"
