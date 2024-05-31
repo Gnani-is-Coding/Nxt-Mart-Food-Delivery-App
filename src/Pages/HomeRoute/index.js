@@ -1,9 +1,8 @@
 import {useState, useEffect} from 'react'
-import {Link} from 'react-router-dom'
-import {LogOut} from 'lucide-react'
 
 import {useCart} from '../Context'
 
+import NavbarLg from '../../Components/NavBarLg'
 import allFoods1 from '../../Images/allFoods1.png'
 import frozenFoods from '../../Images/frozenFoods.png'
 import vegetablesIcon from '../../Images/vegetablesIcon.png'
@@ -11,7 +10,6 @@ import preparedFoods from '../../Images/preparedFoods.png'
 import cannedFoods from '../../Images/cannedFoods.png'
 import LoadingView from '../LoadingView/index'
 import FailureView from '../../Components/Failure'
-import loginLogo from '../../Images/loginLogo.png'
 import Sidebar from '../../Components/Sidebar'
 import MobileNavigationContainer from '../../Components/MobileNavigationContainer'
 import Footer from '../../Components/FooterSection'
@@ -101,22 +99,7 @@ function HomeRoute() {
 
   const renderSuccessView = () => (
     <div className="home-wrapper-lg">
-      <nav className="header-container">
-        <img src={loginLogo} alt="logo" className="logo-img" />
-
-        <div className="header-nav-links-container">
-          <Link to="/" className="nav-links active-nav-link">
-            Home
-          </Link>
-          <Link to="/cart" className="nav-links">
-            Cart
-          </Link>
-          <Link to="/" className="nav-links logout-nav-link-lg">
-            <LogOut />
-            Logout
-          </Link>
-        </div>
-      </nav>
+      <NavbarLg />
 
       <ul className="categories-container">
         {categoriesList.map(obj => (
@@ -145,7 +128,6 @@ function HomeRoute() {
           </a>
         ))}
       </ul>
-
       <div className="home-container-lg">
         <Sidebar categoriesList={apiData} />
 
@@ -271,7 +253,6 @@ function HomeRoute() {
           ))}
         </div>
       </div>
-
       <Footer />
     </div>
   )
